@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f7f4">
+  <title>PropostaFácil — propostas com mais clareza</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="PropostaFácil início"><span class="brand-mark">P<span>+</span></span><span>proposta<span class="brand-light">fácil</span></span></a>
+    <div class="topbar-right"><span class="local-badge"><i></i> Seus dados salvos neste dispositivo</span><button class="button button-primary top-new" id="newProposalTop">＋ Nova proposta</button></div>
+  </header>
+
+  <main class="layout" id="inicio">
+    <section class="editor-column" aria-label="Editor de proposta">
+      <div class="page-heading"><div><div class="eyebrow"><span class="eyebrow-line"></span> PROPOSTA COMERCIAL</div><h1>Um bom trabalho<br>começa com <em>clareza.</em></h1><p class="intro">Organize os detalhes e apresente seu serviço com profissionalismo.</p></div><div class="step-bubble">01 <span>/ 03</span></div></div>
+      <form id="proposalForm" novalidate>
+        <div class="form-section">
+          <div class="section-title"><span class="section-icon">↗</span><div><h2>O essencial</h2><p>Quem está propondo o quê?</p></div><span class="required-note">* Obrigatório</span></div>
+          <div class="field-grid two-col">
+            <label class="field"><span>Nome do cliente <b>*</b></span><input id="clientName" name="clientName" placeholder="Ex.: Mariana Costa" autocomplete="name" aria-describedby="clientNameError" aria-invalid="false" required><small class="field-error" id="clientNameError"></small></label>
+            <label class="field"><span>Seu nome ou empresa <b>*</b></span><input id="providerName" name="providerName" placeholder="Ex.: Estúdio Aurora" aria-describedby="providerNameError" aria-invalid="false" required><small class="field-error" id="providerNameError"></small></label>
+          </div>
+          <label class="field"><span>Descrição do serviço <b>*</b></span><textarea id="serviceDescription" name="serviceDescription" rows="3" placeholder="Conte brevemente o que será feito e o que está incluído..." aria-describedby="serviceDescriptionError" aria-invalid="false" required></textarea><small class="field-error" id="serviceDescriptionError"></small></label>
+          <label class="field field-short"><span>Prazo estimado <b>*</b></span><div class="input-with-icon"><span>◷</span><input id="deadline" name="deadline" placeholder="Ex.: 15 dias úteis" aria-describedby="deadlineError" aria-invalid="false" required></div><small class="field-error" id="deadlineError"></small></label>
+        </div>
+
+        <div class="form-section items-section">
+          <div class="section-title"><span class="section-icon">▤</span><div><h2>Investimento</h2><p>Até 100.000 unidades; R$ 1.000.000,00 por unidade e R$ 10.000.000,00 no total.</p></div></div>
+          <div class="items-head"><span>DESCRIÇÃO</span><span>QTD.</span><span>VALOR UNIT.</span><span></span></div>
+          <div id="itemsList"></div>
+          <button class="add-item" type="button" id="addItem">＋ <span>Adicionar item</span></button>
+          <div class="total-row"><div><span>Valor total</span><small>Valores em reais (BRL)</small></div><strong id="formTotal">R$ 0,00</strong></div>
+        </div>
+
+        <div class="form-section notes-section">
+          <div class="section-title"><span class="section-icon">✎</span><div><h2>Observações</h2><p>Algum detalhe importante para incluir?</p></div><span class="optional-note">Opcional</span></div>
+          <label class="field"><span>Condições, validade ou outras informações</span><textarea id="notes" name="notes" rows="3" placeholder="Ex.: Proposta válida por 15 dias. Pagamento em 2 etapas."></textarea></label>
+        </div>
+        <div class="form-actions"><span class="save-hint"><span class="save-dot"></span> Salvo somente quando você clicar em salvar</span><button class="button button-primary save-button" type="submit"><span>Salvar proposta</span><b>↗</b></button></div>
+      </form>
+    </section>
+
+    <aside class="preview-column" aria-label="Pré-visualização e histórico">
+      <div class="preview-top"><div><div class="eyebrow">PRÉ-VISUALIZAÇÃO</div><h2>Sua proposta</h2></div><button class="icon-button print-button" id="printButton" title="Imprimir ou salvar como PDF" aria-label="Imprimir ou salvar como PDF">⌑</button></div>
+      <div class="paper-wrap"><article class="paper" id="proposalPreview">
+        <div class="paper-brand"><span class="paper-logo">P<span>+</span></span><span class="paper-brand-name">Proposta<span>Fácil</span></span><span class="paper-number" id="previewNumber">PROPOSTA</span></div>
+        <div class="paper-rule"></div>
+        <div class="paper-date" id="previewDate"></div>
+        <h2 class="paper-title">Proposta<br>comercial<span>.</span></h2>
+        <div class="paper-parties"><div><span>PREPARADA PARA</span><strong id="previewClient">Nome do cliente</strong></div><div><span>PREPARADA POR</span><strong id="previewProvider">Seu nome ou empresa</strong></div></div>
+        <div class="paper-block"><span class="paper-label">O SERVIÇO</span><p id="previewDescription">A descrição do seu serviço aparecerá aqui.</p></div>
+        <div class="paper-block deadline-block"><span class="paper-label">PRAZO ESTIMADO</span><p id="previewDeadline">A definir</p></div>
+        <div class="paper-items"><div class="paper-items-heading"><span>DESCRIÇÃO</span><span>TOTAL</span></div><div id="previewItems"><div class="preview-empty">Seus itens aparecerão aqui.</div></div></div>
+        <div class="paper-total"><span>INVESTIMENTO TOTAL</span><strong id="previewTotal">R$ 0,00</strong></div>
+        <div class="paper-notes" id="previewNotesWrap" hidden><span class="paper-label">OBSERVAÇÕES</span><p id="previewNotes"></p></div>
+        <div class="paper-footer"><span>Obrigado pela oportunidade.</span><span id="previewFooterProvider">PropostaFácil</span></div>
+      </article></div>
+      <p class="print-hint">⌑ <span>Imprima ou salve como PDF pelo navegador</span></p>
+      <section class="history-section"><div class="history-heading"><div><div class="eyebrow">SEU ESPAÇO DE TRABALHO</div><h2>Propostas salvas <span class="history-count" id="historyCount">0</span></h2></div></div><div id="historyList" class="history-list"></div></section>
+      <footer class="privacy-note"><span>◈</span> As propostas ficam somente neste navegador e dispositivo.<br><span class="privacy-indent">Não há sincronização nem cópia de segurança automática. Os dados não são enviados pelo aplicativo.</span></footer>
+    </aside>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script type="application/json" id="app-marker">{"app":"PropostaFácil","version":1}</script>
+</body>
+</html>
